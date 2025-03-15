@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function LeadPanel() {
+export default function GeralRelatorio() {
   const [leads, setLeads] = useState([]);
   const [filterDate, setFilterDate] = useState("");
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function LeadPanel() {
   const fetchLeads = async () => {
     try {
       const response = await axios.get(
-        "https://api.baserow.io/api/database/rows/table/427375/?user_field_names=true",
+        "https://api.baserow.io/api/database/rows/table/473205/?user_field_names=true",
         {
           headers: {
             Authorization: "Token gXA1An5bvGbi6VdHZDAHfdn0XHQZhGFg",
@@ -23,18 +23,18 @@ export default function LeadPanel() {
       );
       setLeads(response.data.results);
     } catch (error) {
-      console.error("Erro ao buscar leads", error);
+      console.error("Erro ao buscar Relatório", error);
     }
   };
 
   const filteredLeads = leads.filter((lead) => {
     if (!filterDate) return true;
-    return lead["Data do Resumo"]?.startsWith(filterDate);
+    return lead["Data do Relatório"]?.startsWith(filterDate);
   });
 
   return (
     <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}>Painel de Leads</h1>
+      <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "16px" }}>Painel de Relatório</h1>
       <div style={{ marginBottom: "16px", display: "flex", gap: "10px" }}>
         <input
           type="date"
@@ -43,7 +43,7 @@ export default function LeadPanel() {
           style={{ padding: "8px", flex: 1, border: "1px solid #ccc", borderRadius: "4px" }}
         />
         <button
-          onClick={() => navigate("/geral")}
+          onClick={() => navigate("/")}
           style={{
             padding: "8px 12px",
             background: "#007bff",
@@ -53,7 +53,7 @@ export default function LeadPanel() {
             cursor: "pointer",
           }}
         >
-          Relatório Geral
+          Resumo do Lead
         </button>
       </div>
       <div>
@@ -78,13 +78,13 @@ export default function LeadPanel() {
                   textAlign: "start"
                 }}
               >
-                {lead["RESUMO DO LEAD"]}
+                {lead["Relatório Geral"]}
               </p>
               <p style={{ fontSize: "14px", color: "#555" }}>{lead["Data do Resumo"]}</p>
             </div>
           ))
         ) : (
-          <p>Nenhum lead encontrado.</p>
+          <p>Nenhum Relatório Encontrado.</p>
         )}
       </div>
     </div>
