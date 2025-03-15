@@ -45,8 +45,8 @@ export default function LeadPanel() {
         <button
           onClick={() => navigate("/geral")}
           style={{
-            padding: "8px 12px",
-            background: "#007bff",
+            padding: "8px 25px",
+            background: "#2B612D",
             color: "white",
             border: "none",
             borderRadius: "4px",
